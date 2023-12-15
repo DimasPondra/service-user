@@ -1,5 +1,8 @@
 const { body } = require("express-validator");
 const User = require("../models/User");
+const apiAdapter = require("../../routes/api-adapter");
+const { URL_SERVICE_MEDIA } = process.env;
+const api = apiAdapter(URL_SERVICE_MEDIA);
 
 const rules = [
     body("name", "Name is required.").notEmpty(),
@@ -22,8 +25,12 @@ const rules = [
         .isInt()
         .withMessage("Avatar file ID must be an integer.")
         .custom(async (value) => {
-            if (value == 1) {
-                throw new Error("File not found.");
+            if (value != 0) {
+                try {
+                    await api.get(`/media/${value}`);
+                } catch (err) {
+                    throw new Error("File not found.");
+                }
             }
         }),
 ];
