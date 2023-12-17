@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 const config = require("../../config/config");
 const sequelize = new Sequelize(config.development);
 
-const refreshToken = sequelize.define("RefreshToken", {
+const refreshToken = sequelize.define("Refresh_Token", {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
