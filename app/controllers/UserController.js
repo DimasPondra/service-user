@@ -1,5 +1,6 @@
 const { validationResult } = require("express-validator");
 const User = require("../models/User");
+const RefreshToken = require("../models/RefreshToken");
 const bcrypt = require("bcrypt");
 const apiAdapter = require("../../routes/api-adapter");
 const { Op } = require("sequelize");
@@ -93,6 +94,33 @@ const UserController = {
                 id: user.id,
             },
         });
+    },
+    logout: async (req, res) => {
+        try {
+            const user = await User.findByPk(req.params.id);
+
+            if (!user) {
+                return res.status(404).json({
+                    status: "error",
+                    message: "User not found.",
+                });
+            }
+
+            await RefreshToken.destroy({
+                where: { user_id: user.id },
+            });
+
+            return res.json({
+                status: "success",
+                message: "User successfully logout.",
+            });
+        } catch (err) {
+            return res.status(500).json({
+                status: "error",
+                message: "Something went wrong.",
+                errors: err.message,
+            });
+        }
     },
     index: async (req, res) => {
         let filterByIds = {};
