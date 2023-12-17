@@ -1,6 +1,9 @@
 const { validationResult } = require("express-validator");
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const apiAdapter = require("../../routes/api-adapter");
+const { URL_SERVICE_MEDIA } = process.env;
+const api = apiAdapter(URL_SERVICE_MEDIA);
 
 const UserController = {
     register: async (req, res) => {
@@ -87,6 +90,36 @@ const UserController = {
             message: "User successfully logged In.",
             data: {
                 id: user.id,
+            },
+        });
+    },
+    show: async (req, res) => {
+        const user = await User.findByPk(req.params.id);
+
+        if (!user) {
+            return res.status(404).json({
+                status: "error",
+                message: "User not found.",
+            });
+        }
+
+        let url = null;
+
+        if (user.avatar_file_id != null && user.avatar_file_id != 0) {
+            const media = await api.get(`/media/${user.avatar_file_id}`);
+            url = media.data.data.url;
+        }
+
+        return res.json({
+            status: "success",
+            message: "Successfully get data.",
+            data: {
+                id: user.id,
+                name: user.name,
+                occupation: user.occupation,
+                email: user.email,
+                role: user.role,
+                avatar_file_id: url,
             },
         });
     },
