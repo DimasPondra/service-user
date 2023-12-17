@@ -9,6 +9,7 @@ const userController = require("../app/controllers/UserController");
 
 router.post("/register", validationRegister, userController.register);
 router.post("/login", validationLogin, userController.login);
+router.get("/", userController.index);
 router.get("/:id", userController.show);
 router.patch("/:id", validationUpdate, userController.update);
 
