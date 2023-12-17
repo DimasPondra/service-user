@@ -95,18 +95,20 @@ const UserController = {
         });
     },
     index: async (req, res) => {
-        let userIds = [];
+        let filterByIds = {};
 
         if (req.query.user_ids != undefined && req.query.user_ids != "") {
-            userIds = req.query.user_ids.split(",");
+            const userIds = req.query.user_ids.split(",");
+
+            filterByIds = {
+                id: {
+                    [Op.in]: userIds,
+                },
+            };
         }
 
         const users = await User.findAll({
-            where: {
-                id: {
-                    [Op.or]: userIds,
-                },
-            },
+            where: filterByIds,
         });
 
         const data = await Promise.all(
