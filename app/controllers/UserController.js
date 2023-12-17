@@ -90,6 +90,58 @@ const UserController = {
             },
         });
     },
+    update: async (req, res) => {
+        try {
+            const user = await User.findByPk(req.params.id);
+
+            if (!user) {
+                return res.status(404).json({
+                    status: "error",
+                    message: "User not found.",
+                });
+            }
+
+            let { name, occupation, email, password, avatar_file_id } = req.body;
+
+            // Check validation (body)
+            const errors = validationResult(req);
+            const errorMessage = await Promise.all(
+                errors.array({ onlyFirstError: true }).map(async (err) => {
+                    return {
+                        message: err.msg,
+                    };
+                })
+            );
+            if (!errors.isEmpty()) {
+                return res.status(422).json({
+                    status: "error",
+                    message: "Unprocessable Entity.",
+                    errors: errorMessage,
+                });
+            }
+
+            const passwordHash = await bcrypt.hash(password, 10);
+
+            await user.update({
+                name: name,
+                occupation: occupation,
+                email: email,
+                password: passwordHash,
+                avatar_file_id: avatar_file_id == 0 ? null : avatar_file_id,
+            });
+
+            return res.json({
+                status: "success",
+                message: "User successfully updated.",
+            });
+        } catch (error) {
+            return res.status(500).json({
+                status: "error",
+                message: "Something went wrong.",
+                errors: err.message,
+            });
+        }
+    },
 };
 
 module.exports = UserController;
