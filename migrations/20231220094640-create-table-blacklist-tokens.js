@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable("refresh_tokens", {
+        await queryInterface.createTable("blacklist_tokens", {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
@@ -12,6 +12,14 @@ module.exports = {
             },
             token: {
                 type: Sequelize.TEXT,
+                allowNull: false,
+            },
+            role: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            expired_at: {
+                type: Sequelize.DATE,
                 allowNull: false,
             },
             user_id: {
@@ -34,6 +42,6 @@ module.exports = {
     },
 
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable("refresh_tokens");
+        await queryInterface.dropTable("blacklist_tokens");
     },
 };
