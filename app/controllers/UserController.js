@@ -1,6 +1,5 @@
 const { validationResult } = require("express-validator");
 const User = require("../models/User");
-const RefreshToken = require("../models/RefreshToken");
 const bcrypt = require("bcrypt");
 const apiAdapter = require("../../routes/api-adapter");
 const { Op } = require("sequelize");

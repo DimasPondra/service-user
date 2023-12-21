@@ -46,15 +46,15 @@ const blacklistTokenController = {
         const blacklistToken = await BlacklistToken.findOne({ where: { token: req.params.token } });
 
         if (!blacklistToken) {
-            return res.status(404).json({
-                status: "error",
-                message: "Token not found.",
+            return res.json({
+                status: "success",
+                message: "unavailable",
             });
         }
 
         return res.json({
             status: "success",
-            message: "Tokens are blacklisted.",
+            message: "available",
         });
     },
 };
