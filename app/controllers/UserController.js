@@ -190,7 +190,7 @@ const UserController = {
                 occupation: user.occupation,
                 email: user.email,
                 role: user.role,
-                avatar_file_id: url,
+                avatar_url: url,
             },
         });
     },
