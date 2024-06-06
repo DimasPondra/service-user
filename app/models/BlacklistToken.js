@@ -40,6 +40,8 @@ const blacklistToken = sequelize.define("Blacklist_Token", {
         allowNull: false,
         field: "updated_at",
     },
+}, {
+    tableName: 'blacklist_tokens'
 });
 
 module.exports = blacklistToken;
