@@ -62,7 +62,6 @@ Rubah `.env` untuk konfigurasi sesuai variabel
 - `DB_DATABASE` - Database yang dibuat untuk aplikasi, default adalah laravel.
 - `DB_USERNAME` - Username untuk mengakses database.
 - `DB_PASSWORD` - Password untuk mengakses database.
-
 - `URL_SERVICE_MEDIA` - Url untuk mengakses service media.
 
 Migrasi database tabel awal
