@@ -1,5 +1,5 @@
 # Service User
-Service user adalah bagian dari sebuah microservice yang dibangun untuk membuat API aplikasi crowdfunding, pada service ini digunakan untuk menghandle segala sesuatu tentang user dan token.
+Service user adalah bagian dari sebuah microservice yang dibangun untuk membuat API aplikasi belajar online (kelas digital), pada service ini digunakan untuk menghandle segala sesuatu tentang user dan token.
 
 ## Daftar Isi
 1. [Prasyarat](#prasyarat)
@@ -79,4 +79,4 @@ Mulai server
 npm run start
 ```
 
-Dengan mengikuti langkah-langkah di atas, Anda akan dapat menjalankan Service user dimana service tersebut bagian dari crowdfunding microservice.
+Dengan mengikuti langkah-langkah di atas, Anda akan dapat menjalankan Service user dimana service tersebut bagian dari aplikasi belajar online (kelas digital) microservice.
